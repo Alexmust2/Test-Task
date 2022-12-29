@@ -1,10 +1,10 @@
 <template>
-    <floors></floors>
+    <floors>
+    </floors>
 </template>
 
 <script>
 import Floors from './components/Floors.vue'
-
 export default {
   components: { Floors },
 }
