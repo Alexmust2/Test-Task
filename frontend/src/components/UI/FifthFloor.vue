@@ -10,7 +10,11 @@
 
 <script>
     export default {
-
+        data(){
+            return {
+                isActive: this.$store.state.isActive
+            }
+        },
 }    
 </script>
 
