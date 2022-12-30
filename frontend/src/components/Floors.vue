@@ -5,7 +5,7 @@
                 
             </div>
             <h2 style="margin-left: 15px;">1</h2>
-            <input type="checkbox" @click=" move('translateY(0)')"><div class="circle"></div>
+            <button  @click=" move(1)"><div class="circle"></div></button>
         </div>
 
         <div div class="second_floor-container">
@@ -13,7 +13,7 @@
                 
             </div>
             <h2 style="margin-left: 15px;">2</h2>
-            <input type="checkbox" @click=" move('translateY(-180px)')"><div class="circle"></div>
+            <button  @click=" move(2)"><div class="circle"></div></button>
         </div>
 
         <div class="third_floor-container">
@@ -21,7 +21,7 @@
                 
             </div>
             <h2 style="margin-left: 15px;">3</h2>
-            <input type="checkbox" @click=" move('translateY(-360px)')" ><div class="circle"></div>
+            <button  @click="move(3)" ><div class="circle"></div></button>
         </div>
 
         <div class="fourth_floor-container">
@@ -29,7 +29,7 @@
                 
             </div>
             <h2 style="margin-left: 15px;">4</h2>
-            <input type="checkbox" @click="move('translateY(-540px)')"><div class="circle"></div>
+            <button   @click="move(4)"><div class="circle"></div></button>
         </div>
 
         <div class="fifth_floor-container">
@@ -37,33 +37,46 @@
                 
             </div>
             <h2 style="margin-left: 15px;">5</h2>
-            <input value="5" type="checkbox" @click=" move('translateY(-720px)')"><div  class="circle"></div>
+            <button id="btn" v-bind="queue[5]" @click="move(5)"><div  class="circle"></div></button>
         </div>
 
 
     </div>
-    <div class="elevator_container" id="lift">
-
+    <div style="display:flex; justify-content:center" class="elevator_container" id="lift">
+        <h2>{{ queue[queue.length - 1] }}</h2>
     </div>
 </template>
 
 <script>
+
     export default {
         data() {
             return {
+                stack: {
+                    "-0px" : 1,
+                    "-180px": 2,
+                    "-360px": 3,
+                    "-540px" : 4,
+                    "-720px": 5,
+                },
+                queue: [],
+                isActive: false,
+
             }
         },  
         methods:{
             move(value) {
-                document.getElementById("lift").style.transform = value;
+                const direction = Object.keys(this.stack).find(key => this.stack[key] === value)
+                const lift = document.getElementById("lift")
+                lift.style.transform = `translateY(${direction})`
+                this.queue.push(value)
+                const queue = this.queue
                 setTimeout(function(){
-                    for(const i in document.getElementsByTagName("input")){
-                        document.getElementsByTagName("input")[i].checked = false; 
-                    }
-                },2000) 
-            },
-        }
+                    queue.shift()
+                },3000)
+            }   
     }
+}
 </script>
 
 <style lang="scss">
@@ -138,7 +151,7 @@
     }
 }
 
-input[checkbox]{
+button{
     width:50px;
     height: 50px;
     align-self: center;
@@ -157,7 +170,7 @@ input[checkbox]{
     }
 }
 
-input:active {
+button:active {
     background-color: aqua;
 }
 
@@ -171,7 +184,7 @@ input:active {
     position: relative;
     left: 18px;
     top: -184px;
-    transition: all 2s ease-in-out;
+    transition: all 3s ease-in-out;
 }
 
 </style>
