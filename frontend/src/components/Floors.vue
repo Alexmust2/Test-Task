@@ -5,7 +5,7 @@
                 
             </div>
             <h2 style="margin-left: 15px;">1</h2>
-            <button :class="{ active: isActive }" @click="isActive = !isActive, move('translateY(0)')"><div class="circle"></div></button>
+            <input type="checkbox" @click=" move('translateY(0)')"><div class="circle"></div>
         </div>
 
         <div div class="second_floor-container">
@@ -13,7 +13,7 @@
                 
             </div>
             <h2 style="margin-left: 15px;">2</h2>
-            <button :class="{ active: isActive }" @click="isActive = !isActive, move('translateY(-180px)')"><div class="circle"></div></button>
+            <input type="checkbox" @click=" move('translateY(-180px)')"><div class="circle"></div>
         </div>
 
         <div class="third_floor-container">
@@ -21,7 +21,7 @@
                 
             </div>
             <h2 style="margin-left: 15px;">3</h2>
-            <button :class="{ active: isActive }" @click="isActive = !isActive, move('translateY(-360px)')" ><div class="circle"></div></button>
+            <input type="checkbox" @click=" move('translateY(-360px)')" ><div class="circle"></div>
         </div>
 
         <div class="fourth_floor-container">
@@ -29,7 +29,7 @@
                 
             </div>
             <h2 style="margin-left: 15px;">4</h2>
-            <button :class="{ active: isActive }" @click="isActive = !isActive, move('translateY(-540px)')"><div class="circle"></div></button>
+            <input type="checkbox" @click="move('translateY(-540px)')"><div class="circle"></div>
         </div>
 
         <div class="fifth_floor-container">
@@ -37,7 +37,7 @@
                 
             </div>
             <h2 style="margin-left: 15px;">5</h2>
-            <button id="btn" :class="{active: isActive}" @click="isActive = !isActive, move('translateY(-720px)')"><div  class="circle"></div></button>
+            <input value="5" type="checkbox" @click=" move('translateY(-720px)')"><div  class="circle"></div>
         </div>
 
 
@@ -51,13 +51,16 @@
     export default {
         data() {
             return {
-                isActive: this.$store.state.isActive
             }
         },  
         methods:{
             move(value) {
                 document.getElementById("lift").style.transform = value;
-                delay(3000)
+                setTimeout(function(){
+                    for(const i in document.getElementsByTagName("input")){
+                        document.getElementsByTagName("input")[i].checked = false; 
+                    }
+                },2000) 
             },
         }
     }
@@ -135,7 +138,7 @@
     }
 }
 
-button {
+input[checkbox]{
     width:50px;
     height: 50px;
     align-self: center;
@@ -152,6 +155,10 @@ button {
         border-radius: 50%;
         background:red
     }
+}
+
+input:active {
+    background-color: aqua;
 }
 
 
